@@ -16,7 +16,7 @@ clock = pygame.time.Clock()
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("SANDSIMv1")
 
-WHITE = (255, 255, 255)
+DARK_YELLOW = (214, 183, 24)
 BLACK = (0, 0, 0)
 YELLOW = (255, 255, 0)
 
@@ -24,10 +24,19 @@ grid = [[0 for x in range(GRID_WIDTH)] for y in range(GRID_HEIGHT)]
 
 
 def drawGrid():
-    for x in range(GRID_WIDTH):
-        for y in range(GRID_HEIGHT):
+    for y in range(GRID_HEIGHT):
+        for x in range(GRID_WIDTH):
             rect = pygame.Rect(x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE)
-            color = YELLOW if grid[y][x] == 1 else BLACK
+
+            if grid[y][x] == 1:
+                ratio = y / (GRID_HEIGHT - 1)
+                r = int(214 + (255 - 214) * (1 - ratio))
+                g = int(183 + (255 - 183) * (1 - ratio))
+                b = 24
+                color = (r, g, b)
+            else:
+                color = BLACK
+
             pygame.draw.rect(screen, color, rect)
 
 
